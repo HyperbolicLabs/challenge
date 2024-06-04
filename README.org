@@ -1,0 +1,89 @@
+* Introduction
+
+We've gotten a positive impression of your relevant skillset and experience, and are keen to move to the next phase of the interview process. This is our technical challenge, which we expect will take approximately four hours. It is highly relevant to the day-to-day work you would be doing on the Platform Engineering team. We understand this is a meaningful time commitment, and have done our best to make sure it is not wasted:
+
+1) At the end of the challenge, you are likely to have a viable portfolio project to show off independent of Hyperbolic.
+
+2) Acing this takehome and demo means your technical screening is done. Engineering will ask Management to schedule a final interview.
+
+
+* Challenge Specification
+
+** requirements
+
+We would like you to develop and deploy an open-source golang project that lives in a kubernetes cluster and demonstrates the following programmatic capabilities:
+
+- [ ] takes basic input from an http frontend
+  (UI is not important - we would just like to be able to test your deployment live on our end)
+
+- [ ] creates ArgoCD Applications dynamically from user input
+  - we recommend using the k8s.io/client-go/dynamic library for this
+
+- [ ] deletes ArgoCD Applications dynamically
+
+- [ ] reads ArgoCD Applications or other in-cluster resources to display basic information on the frontend
+
+- [ ] (reach goal) modifies an ArgoCD ApplicationSet's 'generators' field to create multiple similar Applications dynamically from one manifest
+
+
+** scope
+
+It may be too much to hope for in a job interview, but we do aspire to leave room for 'fun' in this coding challenge. To that end, the rest of the challenge is up to you. Here are a couple examples of potentially 'fun' projects to get the juices flowing:
+
+*** Mini cloud:
+user pastes their ssh pubkey into the frontend, and the backend dynamically modifies an ApplicationSet's 'generator' field which then generates a new ArgoCD Application that spins up a Kubernetes deployment and service for the user to ssh into
+
+
+*** Website builder:
+user pastes some text into the frontend, and a desired path for that text to be posted to. The backend dynamically creates an argocd application that adds a Traefik route to ~<initials>.takehome.dev-hyperbolic.xyz/desired/path~ and serves the user's text at that url.
+
+
+*** Minecraft hosting:
+user clicks 'new server' and the backed creates or modifies ArgoCD manifests to deploy one or several (containerized) Minetest servers for them to play on at ~<initials>.takehome.dev-hyperbolic.xyz:<some-port>~
+
+(open-source minecraft: https://github.com/minetest/minetest)
+
+
+** infrastructure
+
+we will share an ssh private key granting access to the following url:
+
+~<initals>.challenge.dev-hyperbolic.xyz~
+
+you can access the server using the following command:
+
+#+begin_src
+ssh -i <path-to-ssh-private-key.pem> ubuntu@<initials>.challenge.dev-hyperbolic.xyz
+#+end_src
+
+we recommend microk8s for ease-of-use, since you can quickly spin up a new kubernetes cluster and install argocd like so:
+
+#+begin_src
+sudo snap install microk8s --classic
+sudo microk8s enable community
+sudo microk8s enable argocd
+
+microk8s.kubectl get all --all-namespaces
+#+end_src
+
+that being said, if you have a preferred distro other than microk8s, feel free to use it. And if your project requires a multi-node cluster, you are welcome to skip our ssh box as well. We just provide it for convenience and to make sure you aren't forced to spend any money on cloud hosting to deploy your product.
+
+
+* Helpful Links
+
+- https://github.com/hyperboliclabs/hyper-dos
+- https://pkg.go.dev/k8s.io/client-go@v0.30.1/dynamic
+- https://mholt.github.io/json-to-go/
+- https://argo-cd.readthedocs.io/en/stable/operator-manual/applicationset/
+- https://gitlab.com/squire-exchange/public/cluster-dos
+
+
+* Output
+
+We are excited to see what you've built! Here is what we'd like you to submit when you feel ready to share (ideally within 72 hours of receiving this email, or 5 days at the latest)
+
+- a repo with your code
+- a 5-10m demo video walking us through the following:
+  - what it is (from the 'user' perspective)
+  - how it works (from the dev perspective)
+  - how to deploy it (from the ops perspective)
