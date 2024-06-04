@@ -35,11 +35,11 @@ user pastes their ssh pubkey into the frontend, and the backend dynamically modi
 
 
 *** Website builder:
-user pastes some text into the frontend, and a desired path for that text to be posted to. The backend dynamically creates an argocd application that adds a Traefik route to ~<initials>.takehome.dev-hyperbolic.xyz/desired/path~ and serves the user's text at that url.
+user pastes some text into the frontend, and a desired path for that text to be posted to. The backend dynamically creates an argocd application that adds a Traefik route to ~<initials>.challenge.dev-hyperbolic.xyz/desired/path~ and serves the user's text at that url.
 
 
 *** Minecraft hosting:
-user clicks 'new server' and the backed creates or modifies ArgoCD manifests to deploy one or several (containerized) Minetest servers for them to play on at ~<initials>.takehome.dev-hyperbolic.xyz:<some-port>~
+user clicks 'new server' and the backed creates or modifies ArgoCD manifests to deploy one or several (containerized) Minetest servers for them to play on at ~<initials>.challenge.dev-hyperbolic.xyz:<some-port>~
 
 (open-source minecraft: https://github.com/minetest/minetest)
 
