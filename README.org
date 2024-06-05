@@ -33,6 +33,9 @@ It may be too much to hope for in a job interview, but we do aspire to leave roo
 *** Mini cloud:
 user pastes their ssh pubkey into the frontend, and the backend dynamically modifies an ApplicationSet's 'generator' field which then generates a new ArgoCD Application that spins up a Kubernetes deployment and service for the user to ssh into
 
+*** Private minicloud
+user pastes their ssh pubkey into the frontend, and the backend dynamically creates a new ArgoCD Application that spins up an 'instance' container/deployment for the user to ssh into via Tailscale, using the Tailscale Kubernetes operator. There is no way to get into the ssh instance from the public internet.
+
 
 *** Website builder:
 user pastes some text into the frontend, and a desired path for that text to be posted to. The backend dynamically creates an argocd application that adds a Traefik route to ~<initials>.challenge.dev-hyperbolic.xyz/desired/path~ and serves the user's text at that url.
@@ -76,6 +79,7 @@ that being said, if you have a preferred distro other than microk8s, feel free t
 - https://mholt.github.io/json-to-go/
 - https://argo-cd.readthedocs.io/en/stable/operator-manual/applicationset/
 - https://gitlab.com/squire-exchange/public/cluster-dos
+- https://tailscale.com/kb/1236/kubernetes-operator
 
 
 * Output
