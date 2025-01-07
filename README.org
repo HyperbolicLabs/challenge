@@ -4,26 +4,34 @@ We've gotten a positive impression of your relevant skillset and experience, and
 
 1) At the end of the challenge, you are likely to have a viable portfolio project to show off independent of Hyperbolic.
 
-2) Acing this takehome and demo means your technical screening is done. Engineering will ask Management to schedule a final interview.
+2) Acing this takehome and demo means your code screening is done. After a successful system design interview (e.g. using Excalidraw), Engineering will ask Management to schedule a final interview.
 
 
 * Challenge Specification
 
 ** requirements
 
-We would like you to develop and deploy an open-source golang project that lives in a kubernetes cluster and demonstrates the following programmatic capabilities:
+We would like you to develop and deploy an open-source golang project to a kubernetes cluster.
+
+*** code
+
+The golang container itself should live in a kubernetes cluster and demonstrates the following programmatic capabilities
 
 - [ ] takes basic input from an http frontend
-  (UI is not important - we would just like to be able to test your deployment live on our end)
+  - UI is not important - we would just like to be able to test your deployment live on our end. A simple html input field with a button or two is fine!
 
-- [ ] creates ArgoCD Applications dynamically from user input
-  - we recommend using the k8s.io/client-go/dynamic library for this
+- [ ] creates Kubernetes resources (e.g. pods, services) dynamically from user input
+  - for example: the user enters a bash command, and clicks 'enter' - then your golang controller creates a kubernetes job that runs that command and displays the output.
 
-- [ ] deletes ArgoCD Applications dynamically
+- [ ] deletes Kubernetes resources dynamically
 
-- [ ] reads ArgoCD Applications or other in-cluster resources to display basic information on the frontend
+- [ ] reads from in-cluster resources to display basic information on the frontend.
+  - example: "deployment has 2/2 replicas ready"
 
-- [ ] (reach goal) modifies an ArgoCD ApplicationSet's 'generators' field to create multiple similar Applications dynamically from one manifest
+
+*** gitops
+
+- [ ] The deployment should be managed by ArgoCD such that a 'git push' to the repo is automatically (or semi-automatically) deployed to the cluster.
 
 
 ** scope
@@ -31,33 +39,33 @@ We would like you to develop and deploy an open-source golang project that lives
 It may be too much to hope for in a job interview, but we do aspire to leave room for 'fun' in this coding challenge. To that end, the rest of the challenge is up to you. Here are a couple examples of potentially 'fun' projects to get the juices flowing:
 
 *** Mini cloud:
-user pastes their ssh pubkey into the frontend, and the backend dynamically modifies an ApplicationSet's 'generator' field which then generates a new ArgoCD Application that spins up a Kubernetes deployment and service for the user to ssh into
+user pastes their ssh pubkey into the frontend, and the backend creates a configmap, deployment, and service to allow the user to ssh into ther 'cloud instance.' The frontend then shows the status of the instance, how to ssh in, and a button to terminate it.
 
-*** Private minicloud
-user pastes their ssh pubkey into the frontend, and the backend dynamically creates a new ArgoCD Application that spins up an 'instance' container/deployment for the user to ssh into via Tailscale, using the Tailscale Kubernetes operator. There is no way to get into the ssh instance from the public internet.
-
+*** LLM Inference Platform
+user sees a list of AI models that can be deployed to the cluster. When 'deploy' is clicked, a kubernetes deployment and service is created. A new link appears in the frontend such that the user can enter into a chat with the newly deployed LLM.
+- tip: the LLM doesn't need to be very good
 
 *** Website builder:
-user pastes some text into the frontend, and a desired path for that text to be posted to. The backend dynamically creates an argocd application that adds a Traefik route to ~<initials>.challenge.dev-hyperbolic.xyz/desired/path~ and serves the user's text at that url.
+user pastes some text, and specifies a desired path for the text to be posted to. The golang backend dynamically updates an Ingress to add the new path. When the user goes to that path, the text they pasted is shown.
 
 
 *** Minecraft hosting:
-user clicks 'new server' and the backed creates or modifies ArgoCD manifests to deploy one or several (containerized) Minetest servers for them to play on at ~<initials>.challenge.dev-hyperbolic.xyz:<some-port>~
-
-(open-source minecraft: https://github.com/minetest/minetest)
+user clicks 'new server' and the golang controller creates a playable minecraft server and shows the user how to connect. The user can create multiple servers and connect to any of them. They can also delete any server when they are done.
+- (open-source minecraft: https://github.com/minetest/minetest)
 
 
 ** infrastructure
 
-we will share an ssh private key granting access to the following url:
+*** access
 
-~<initals>.challenge.dev-hyperbolic.xyz~
+we will share an ssh private key and rainforest-id. You can then ssh into the server like so:
 
-you can access the server using the following command:
-
-#+begin_src
-ssh -i <path-to-ssh-private-key.pem> ubuntu@<initials>.challenge.dev-hyperbolic.xyz
+#+begin_src shell
+ssh -i <path-to-ssh-private-key.pem> ubuntu@<rainforest-id>.challenge.dev-hyperbolic.xyz
 #+end_src
+
+
+*** microk8s
 
 we recommend microk8s for ease-of-use, since you can quickly spin up a new kubernetes cluster and install argocd like so:
 
@@ -69,13 +77,39 @@ sudo microk8s enable argocd
 microk8s.kubectl get all --all-namespaces
 #+end_src
 
+you can also print the microk8s kubeconfig like so:
+
+#+begin_src
+microk8s config
+#+end_src
+
+
+
 that being said, if you have a preferred distro other than microk8s, feel free to use it. And if your project requires a multi-node cluster, you are welcome to skip our ssh box as well. We just provide it for convenience and to make sure you aren't forced to spend any money on cloud hosting to deploy your product.
+
+
+*** accessing a new microk8s cluster via public internet
+
+Note that the kubeconfig printed by `microk8s config` will point to the local address. If you would like to access the cluster via public internet, you have two options:
+
+A) edit the csr.conf.template file on the remote server
+
+    #+begin_src sh
+    # edit the csr.conf file in microk8s to add the the desired IP or DNS route
+    vi /var/snap/microk8s/current/certs/csr.conf.template
+
+    microk8s stop
+    microk8s start
+    #+end_src
+
+    (note that you will also have to edit the kubeconfig file printed by `microk8s config` according to the DNS route or public IP you'd like to access the cluster at)
+
 
 
 * Helpful Links
 
 - https://github.com/hyperboliclabs/hyper-dos
-- https://pkg.go.dev/k8s.io/client-go@v0.30.1/dynamic
+- https://pkg.go.dev/k8s.io/client-go/dynamic
 - https://mholt.github.io/json-to-go/
 - https://argo-cd.readthedocs.io/en/stable/operator-manual/applicationset/
 - https://gitlab.com/squire-exchange/public/cluster-dos
