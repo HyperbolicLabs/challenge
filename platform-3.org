@@ -1,0 +1,52 @@
+* The Role
+We’re seeking a Member of Technical Staff to develop critical components of our p2p GPU compute marketplace. We are more interested in your practical ability than your experience, so don't feel like you need to meet any hard-coded prerequisites! We just want to work with somebody that truly enjoys writing kubernetes automation golang, and can pick up new concepts and skills when pointed in the right direction. If you like building cool stuff and scaling it massively, we think you'll enjoy the work here.
+
+
+* Vibe Check
+- Kubernetes
+- Golang k8s controllers and operators
+- gRPC
+- ArgoCD, Helm templating, GitOps
+- Tailscale, Wireguard, Kilo, Traefik
+- Multi-Cluster Federation/Feudalism
+- Cluster Operating Systems
+- Rook/Ceph
+- Linux
+- AI Agents
+- GPUs (lots and lots of them)
+
+
+* Notes about the platform team
+- We are small (looking for our third team member)
+- We've taken the GPU marketplace from $0 to ~$500k/yr rate of volume in the last 6mo
+- We have designed and launched the first 'cluster operating system' for GPU supply: hyperdOS
+  - https://github.com/HyperbolicLabs/Hyper-dOS
+  - we plan to open source two more operating system distros for network supply and cloud service provider clusters
+- We focus on automating big things into small and simple fundamentals
+  - for example, bootstrapping a whole cluster from scratch and joining it to the marketplace
+- We write golang that manages multi-cluster ArgoCD federations and largely automates the work of an entire devops department
+
+
+* Who we are looking for
+- Somebody practical, who above all likes to build and ship tech that works
+- Somebody who enjoys finding and using new tech
+- Can move to SF within 6mo (hybrid)
+- Loves to automate big things that have not yet been automated
+- Writes code to make complex concepts feel simple and fun to work with
+
+
+* Interview Process
+Frequently the people who struggle with typical 'big tech' interviews are actually fantastic platform engineers, and we want our interview process to recognize that. If you can build something useful, that is way more important than writing the perfect linked list search algorithm in 5 minutes or less!
+
+1) Phone screen
+2) take-home: we will ask you to build and demo something fun, cool, or useful (your choice)
+   - using golang and kubernetes under the hood
+3) then a system design session (excalidraw, multi-cluster architecture)
+4) founder meetup & offer!
+
+
+* Compensation
+- This is a specialized role, and we are a selective team. To be direct: we hope to make an offer that
+    1. reflects a raise in your cash compensation as compared to your current or previous role
+    2. comes with a meaningful equity package
+    3. has an improved liquidity timeline as compared to almost any web2 company
