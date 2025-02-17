@@ -6,7 +6,7 @@ We’re seeking a Member of Technical Staff to develop critical components of ou
 - Kubernetes
 - Golang k8s controllers and operators
 - gRPC
-- ArgoCD, Helm templating, GitOps
+- ArgoCD, programmatic Helm templating, GitOps
 - Tailscale, Wireguard, Kilo, Traefik
 - Multi-Cluster Federation/Feudalism
 - Cluster Operating Systems
