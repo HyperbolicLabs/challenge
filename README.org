@@ -108,6 +108,7 @@ A) edit the csr.conf.template file on the remote server
 
 * Helpful Links
 
+- https://christian.ondaatje.org/videos/k8s-controller-demo
 - https://github.com/hyperboliclabs/hyper-dos
 - https://pkg.go.dev/k8s.io/client-go/dynamic
 - https://mholt.github.io/json-to-go/
