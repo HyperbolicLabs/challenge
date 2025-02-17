@@ -90,7 +90,7 @@ that being said, if you have a preferred distro other than microk8s, feel free t
 
 *** accessing a new microk8s cluster via public internet
 
-Note that the kubeconfig printed by `microk8s config` will point to the local address. If you would like to access the cluster via public internet, you have two options:
+Note that the kubeconfig printed by `microk8s config` will point to the local address. If you would like to access the cluster via public internet, here is the trick:
 
 A) edit the csr.conf.template file on the remote server
 
